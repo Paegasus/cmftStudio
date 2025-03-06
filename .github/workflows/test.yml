@@ -20,6 +20,9 @@ jobs:
           update: true
           install: >
             make
+            mingw-w64-x86_64-gcc
+            mingw-w64-x86_64-make
+            mingw-w64-x86_64-toolchain
 
       - name: Build using Makefile (Mingw release 64)
         shell: msys2 {0}
