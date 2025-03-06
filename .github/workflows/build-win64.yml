@@ -21,6 +21,7 @@ jobs:
           install: >
             mingw-w64-x86_64-gcc
             mingw-w64-x86_64-make
+            make
 
       - name: Build using Makefile (Mingw release 64)
         run: msys2 -c "cd $GITHUB_WORKSPACE && make mingw-gcc-release64"
