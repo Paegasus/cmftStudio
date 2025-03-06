@@ -24,7 +24,7 @@ jobs:
       - name: Print Workspace Directory (CMD)
         shell: cmd
         run: |
-         echo CMD Workspace Directory:
+         echo "CMD Workspace Directory:"
          echo %GITHUB_WORKSPACE%
 
       - name: Print Workspace Directory (MSYS2)
@@ -32,5 +32,5 @@ jobs:
         env:
           MSYSTEM: MINGW64
         run: |
-          echo MSYS2 Workspace Directory:
+          echo "MSYS2 Workspace Directory:"
           echo "$GITHUB_WORKSPACE"
