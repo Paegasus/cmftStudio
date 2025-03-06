@@ -11,10 +11,10 @@ jobs:
   build:
     runs-on: windows-latest
     steps:
-      - name: Checkout repository
+      - name: Checkout repository (with submodules)
         uses: actions/checkout@v3
         with:
-         submodules: true
+          submodules: true
 
       - name: Setup MSYS2 environment
         uses: msys2/setup-msys2@v2
@@ -22,15 +22,19 @@ jobs:
           update: true
           install: >
             make
-            mingw-w64-x86_64-gcc
-            mingw-w64-x86_64-make
             mingw-w64-x86_64-toolchain
+
+      - name: Verify compilers
+        shell: msys2 {0}
+        run: |
+          which x86_64-w64-mingw32-g++
+          x86_64-w64-mingw32-g++ --version
 
       - name: Build using Makefile (Mingw release 64)
         shell: msys2 {0}
         run: |
-         cd "$(cygpath -u "$GITHUB_WORKSPACE")"
-         make -f Makefile mingw-gcc-release64
+          cd "$(cygpath -u "$GITHUB_WORKSPACE")"
+          make -f Makefile mingw-gcc-release64
 
       - name: Upload Build Artifact
         uses: actions/upload-artifact@v4
