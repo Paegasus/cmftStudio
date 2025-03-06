@@ -21,6 +21,16 @@ jobs:
         with:
           update: true
 
-      - name: Verify Workspace Directory
+      - name: Print Workspace Directory (CMD)
+        shell: cmd
         run: |
+         echo CMD Workspace Directory:
+         echo %GITHUB_WORKSPACE%
+
+      - name: Print Workspace Directory (MSYS2)
+        shell: msys {0}
+        env:
+          MSYSTEM: MINGW64
+        run: |
+          echo MSYS2 Workspace Directory:
           echo "$GITHUB_WORKSPACE"
