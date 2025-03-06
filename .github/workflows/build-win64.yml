@@ -27,7 +27,7 @@ jobs:
           msys2 -c "cd \"$(cygpath -u \"$GITHUB_WORKSPACE\")\" && make -f Makefile mingw-gcc-release64"
 
       - name: Upload Build Artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: cmftStudio-binary
           path: _build/mingw64_gcc/bin/cmftStudioRelease
