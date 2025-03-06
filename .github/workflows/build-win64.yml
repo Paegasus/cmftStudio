@@ -20,22 +20,18 @@ jobs:
         uses: msys2/setup-msys2@v2
         with:
           update: true
-          install: >
+          install: >-
+            base-devel
+            mingw-w64-ucrt-x86_64-toolchain
             make
-            mingw-w64-x86_64-toolchain
-
-      - name: Verify compilers
-        shell: msys2 {0}
-        run: |
-          which x86_64-w64-mingw32-g++
-          x86_64-w64-mingw32-g++ --version
+            git
 
       - name: Build using Makefile (Mingw release 64)
         shell: msys2 {0}
+        env:
+         MSYSTEM: UCRT64
         run: |
          cd "$GITHUB_WORKSPACE"
-         echo $PATH
-         which x86_64-w64-mingw32-g++
          make -f Makefile mingw-gcc-release64
 
       - name: Upload Build Artifact
