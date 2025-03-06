@@ -1,28 +1,26 @@
-name: Build cmftStudio for Windows 64-bit
+name: Build cmftStudio for Windows 64 (Mingw)
 
 on:
   push:
-    branches:
-      - main
+    branches: [ main ]
   pull_request:
-    branches:
-      - main
+    branches: [ main ]
   workflow_dispatch:
 
 jobs:
   build:
     runs-on: windows-latest
-
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v3
+      - name: Checkout repository
+        uses: actions/checkout@v3
 
-    - name: Set up Visual Studio
-      uses: ilammy/msvc-dev-cmd@v1
-      with:
-        arch: x64
-        vsversion: 2013
+      - name: Setup MSYS2 environment
+        uses: msys2/setup-msys2@v2
+        with:
+          update: true
+          install: >
+            mingw-w64-x86_64-gcc
+            mingw-w64-x86_64-make
 
-    - name: Run Makefile for Visual Studio 2013
-      run: |
-        make vs2013-release64
+      - name: Build using Makefile (Mingw release 64)
+        run: msys2 -c "cd $GITHUB_WORKSPACE && make mingw-gcc-release64"
